@@ -1,17 +1,14 @@
 Environment Info:
 - MicroController:  ESP8266 (ESP-01)
-- OS:               Ubuntu 18
+- OS:               Windows 10
 - USB to Serial:    Silicon Labs CP2102 USB to UART Bridge
 
 Preparation:
   - Download CP2102 Driver from silabs.com
   - Download the Stable esp8266 firmware from http://micropython.org/download#esp8266
-  
-  - sudo apt-get update
-  - sudo apt-get install python3-pip
-  - sudo pip3 install esptool
-  
-  - Wire as below to flash:
+  - Download ESP8266 Flasher from: https://randomnerdtutorials.com/flashing-nodemcu-firmware-on-the-esp8266-using-windows/
+  - Connect GPIO0 to GND and upload the MicroPython firmware.
+    - Wire as below to flash:
     •	VCC	=	3.3V (needs around 300-400mA peak)
     •	GND	=	ground
     •	CH_PD	=	Chip enable so always +VCC
@@ -19,7 +16,6 @@ Preparation:
     •	GPIO0	=	Normally floating but this needs to be grounded when you start the update.
     •	UTXD	=	Tx data connect to Tx on FTDI/Serial interface
     •	URXD	=	Rx data connect to Rx of FTDI/Serial interface
-  - Find available ports using:
-    dmesg | grep tty
+  - After finishing the firmware upload, detach GPIO0 from GND
     
     
