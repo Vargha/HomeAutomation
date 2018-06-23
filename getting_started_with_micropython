@@ -16,6 +16,7 @@ Preparation:
     •	GPIO0	=	Normally floating but this needs to be grounded when you start the update.
     •	UTXD	=	Tx data connect to Tx on FTDI/Serial interface
     •	URXD	=	Rx data connect to Rx of FTDI/Serial interface
+  *IMPORTANT NOTE: Keep the laptop plugged in, while updating the firmware, or use an external power for the ESP.
   - After finishing the firmware upload, detach GPIO0 from GND
     
     
