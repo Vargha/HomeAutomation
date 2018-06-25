@@ -1,0 +1,71 @@
+# QUICK REFRANCE:     http://docs.micropython.org/en/v1.9/esp8266/esp8266/quickref.html
+# UPLOAD CODE:        http://micropython.org/webrepl/
+# startup file:       boot.py
+# -------------------------------------------------------------------------------------
+
+# Networking
+# ==========
+
+import network
+
+wlan = network.WLAN(network.STA_IF) # create station interface
+wlan.active(True)       # activate the interface
+wlan.scan()             # scan for access points
+wlan.isconnected()      # check if the station is connected to an AP
+wlan.connect('essid', 'password') # connect to an AP
+wlan.config('mac')      # get the interface's MAC adddress
+wlan.ifconfig()         # get the interface's IP/netmask/gw/DNS addresses
+
+ap = network.WLAN(network.AP_IF) # create access-point interface
+ap.active(True)         # activate the interface
+ap.config(essid='ESP-AP') # set the ESSID of the access point
+
+# -------------------------------------------------------------------------------------
+# A useful function for connecting to your local WiFi network is:
+
+def do_connect():
+    import network
+    wlan = network.WLAN(network.STA_IF)
+    wlan.active(True)
+    if not wlan.isconnected():
+        print('connecting to network...')
+        wlan.connect('essid', 'password')
+        while not wlan.isconnected():
+            pass
+    print('network config:', wlan.ifconfig())
+    
+# -------------------------------------------------------------------------------------
+
+# Pins and GPIO
+# =============
+# Available pins are: 0, 1, 2, 3, 4, 5, 12, 13, 14, 15, 16
+
+from machine import Pin
+
+p0 = Pin(0, Pin.OUT)    # create output pin on GPIO0
+p0.on()                 # set pin to high
+p0.off()                # set pin to low
+p0.value(1)             # set pin to high
+p0.value(not p0.value())# toggle pin
+
+p2 = Pin(2, Pin.IN)     # create input pin on GPIO2
+print(p2.value())       # get value, 0 or 1
+
+p4 = Pin(4, Pin.IN, Pin.PULL_UP) # enable internal pull-up resistor
+p5 = Pin(5, Pin.OUT, value=1) # set pin high on creation
+
+# -------------------------------------------------------------------------------------
+# DHT driver (Humidity and Temprature Sensor):
+# ============================================
+import dht
+import machine
+
+d = dht.DHT11(machine.Pin(4))
+d.measure()
+d.temperature() # eg. 23 (°C)
+d.humidity()    # eg. 41 (% RH)
+
+d = dht.DHT22(machine.Pin(4))
+d.measure()
+d.temperature() # eg. 23.6 (°C)
+d.humidity()    # eg. 41.3 (% RH)
